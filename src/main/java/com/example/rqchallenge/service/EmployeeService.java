@@ -3,7 +3,7 @@ package com.example.rqchallenge.service;
 import java.util.List;
 import java.util.Map;
 
-import com.example.reqchallenge.entity.Employee;
+import com.example.rqchallenge.entity.Employee;
 
 
 public interface EmployeeService {

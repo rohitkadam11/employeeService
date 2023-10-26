@@ -3,7 +3,7 @@ package com.example.rqchallenge.employees;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.reqchallenge.entity.Employee;
+import com.example.rqchallenge.entity.Employee;
 
 import java.io.IOException;
 import java.util.List;

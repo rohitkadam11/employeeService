@@ -16,7 +16,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.reqchallenge.entity.Employee;
+import com.example.rqchallenge.entity.Employee;
 import com.example.rqchallenge.service.EmployeeService;
 
 
@@ -137,10 +137,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             	Map<String,Object> respObj = (Map<String, Object>) response.get("data");
                 Employee emp = new Employee(respObj.get("name").toString(),Integer.parseInt(respObj.get("Salary").toString()),
                 		Integer.parseInt(respObj.get("Age").toString()),Integer.parseInt(respObj.get("id").toString()));
-//                emp.setName(respObj.get("name").toString());
-//                emp.setId(Integer.parseInt(respObj.get("id").toString()));
-//                emp.setAge(Integer.parseInt(respObj.get("Age").toString()));
-//                emp.setSalary(Integer.parseInt(respObj.get("Salary").toString()));
                 return emp;
             } else {
             	return null;

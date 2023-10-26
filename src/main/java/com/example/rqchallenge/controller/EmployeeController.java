@@ -8,14 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.example.reqchallenge.entity.Employee;
 import com.example.rqchallenge.employees.IEmployeeController;
+import com.example.rqchallenge.entity.Employee;
 import com.example.rqchallenge.service.EmployeeService;
 
 @Component
 public class EmployeeController implements IEmployeeController{
 
-	@Autowired EmployeeService employeeService;
+	@Autowired 
+	EmployeeService employeeService;
 	
 	@Override
 	public ResponseEntity<List<Employee>> getAllEmployees() throws IOException {
@@ -90,6 +91,7 @@ public class EmployeeController implements IEmployeeController{
 		if(emp == null) {
 			return ResponseEntity.noContent().build();
 		}
+		System.out.println(emp.toString());
 		return ResponseEntity.ok(emp);
 	}
 
