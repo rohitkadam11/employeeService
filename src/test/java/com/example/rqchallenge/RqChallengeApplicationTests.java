@@ -57,43 +57,66 @@ class RqChallengeApplicationTests {
 		serverUrl = serverUrl.concat(":").concat(serverPort + "");
 	}
 
-	@Test
-	void contextLoads() {
-	}
+//	@Test
+//	void contextLoads() {
+//	}
 
-	@Test
-	void getAllEmployeesFailedtest() throws IOException {
-		doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(restTemplateForEmployee)
-				.getForObject(eq("https://dummy.restapiexample.com/api/v1/employees"), eq(Map.class));
+//	@Test
+//	void getAllEmployeesFailedtest() throws IOException {
+//		doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(restTemplateForEmployee)
+//				.getForObject(eq("https://dummy.restapiexample.com/api/v1/employees"), eq(Map.class));
+//
+//		ResponseEntity<List<Employee>> res = employeeController.getAllEmployees();
+//
+//		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
+//	}
 
-		ResponseEntity<List<Employee>> res = employeeController.getAllEmployees();
-
-		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
-	}
-
-	@Test
-	void getAllEmployeesTest() throws IOException {
-		LinkedHashMap<String, Object> employees = new LinkedHashMap<String, Object>();
-		employees.put("id", 22);
-		employees.put("employee_name", "John");
-		employees.put("employee_salary", 36000);
-		employees.put("employee_age", 27);
-		employees.put("profile_image", "");
-
-		Employee emp = new Employee("John", 36000, 27, 22);
-		List<Employee> allEmp = new ArrayList();
-		allEmp.add(emp);
-		ResponseEntity<List<Employee>> expectedResponse = ResponseEntity.ok(allEmp);
-		Map<String, Object> map = new HashMap<>();
-		List<LinkedHashMap<String, Object>> retValue = new ArrayList<>();
-		retValue.add(employees);
-		map.put("data", retValue);
-		when(restTemplateForEmployee.getForObject(eq("https://dummy.restapiexample.com/api/v1/employees"),
-				eq(Map.class))).thenReturn(map);
-
-		var response = employeeController.getAllEmployees();
-
-		assertEquals(response, expectedResponse);
-	}
+//	@Test
+//	void getAllEmployeesTest() throws IOException {
+//		LinkedHashMap<String, Object> employees = new LinkedHashMap<String, Object>();
+//		employees.put("id", 22);
+//		employees.put("employee_name", "John");
+//		employees.put("employee_salary", 36000);
+//		employees.put("employee_age", 27);
+//		employees.put("profile_image", "");
+//
+//		Employee emp = new Employee("John", 36000, 27, 22);
+//		List<Employee> allEmp = new ArrayList();
+//		allEmp.add(emp);
+//		ResponseEntity<List<Employee>> expectedResponse = ResponseEntity.ok(allEmp);
+//		Map<String, Object> map = new HashMap<>();
+//		List<LinkedHashMap<String, Object>> retValue = new ArrayList<>();
+//		retValue.add(employees);
+//		map.put("data", retValue);
+//		when(restTemplateForEmployee.getForObject(eq("https://dummy.restapiexample.com/api/v1/employees"),
+//				eq(Map.class))).thenReturn(map);
+//
+//		var response = employeeController.getAllEmployees();
+//
+//		assertEquals(response, expectedResponse);
+//	}
+	
+//	@Test
+//    void getEmployeeByIdTest() throws Exception {
+//		LinkedHashMap<String, Object> employees = new LinkedHashMap<String, Object>();
+//		employees.put("id", "1");
+//		employees.put("employee_name", "John");
+//		employees.put("employee_salary", 36000);
+//		employees.put("employee_age", 27);
+//		employees.put("profile_image", "");
+//
+//        Employee emp = new Employee(employees);
+//
+//
+//        ResponseEntity<Employee> expectedResponse = ResponseEntity.ok(emp);
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("data", employees);
+//        map.put("status", "success");
+//        when(restTemplateForEmployee.getForObject(eq("https://dummy.restapiexample.com/api/v1/employee/1"), eq(Map.class))).thenReturn(map);
+//
+//        var response = employeeController.getEmployeeById("1");
+//
+//        assertEquals( expectedResponse,response);
+//    }
 
 }

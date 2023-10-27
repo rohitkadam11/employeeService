@@ -1,6 +1,7 @@
 package com.example.rqchallenge.entity;
 
 import java.util.Map;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -44,6 +45,14 @@ public class Employee {
 		this.id = id;
 	}
 
+	public Employee(String name, int salary, int age, int id,String profileImage) {
+		super();
+		this.name = name;
+		this.salary = salary;
+		this.age = age;
+		this.id = id;
+		this.profileImage = profileImage;
+	}
 	public Employee(Map<String, Object> emp) {
 		this.id = Integer.parseInt(emp.get("id").toString());
 		this.name = emp.get("employee_name").toString();
@@ -101,5 +110,25 @@ public class Employee {
 		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + ", age=" + age + ", profileImage="
 				+ profileImage + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(age, id, name, profileImage, salary);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		return age == other.age && id == other.id && Objects.equals(name, other.name)
+				&& Objects.equals(profileImage, other.profileImage) && salary == other.salary;
+	}
+	
+	
 	
 }
