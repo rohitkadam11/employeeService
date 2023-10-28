@@ -7,28 +7,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Employee {
 	@JsonProperty("id")
 	public int id;
-	
+
 	@JsonProperty("employee_name")
 	public String name;
-	
+
 	@JsonProperty("employee_salary")
 	public int salary;
-	
+
 	@JsonProperty("employee_age")
 	public int age;
-	
+
 	@JsonProperty("profile_image")
 	public String profileImage;
-	
+
 	public Employee(String name, int salary, int age, String profileImage) {
 		super();
 		this.name = name;
@@ -36,7 +33,7 @@ public class Employee {
 		this.age = age;
 		this.profileImage = profileImage;
 	}
-	
+
 	public Employee(String name, int salary, int age, int id) {
 		super();
 		this.name = name;
@@ -45,14 +42,6 @@ public class Employee {
 		this.id = id;
 	}
 
-	public Employee(String name, int salary, int age, int id,String profileImage) {
-		super();
-		this.name = name;
-		this.salary = salary;
-		this.age = age;
-		this.id = id;
-		this.profileImage = profileImage;
-	}
 	public Employee(Map<String, Object> emp) {
 		this.id = Integer.parseInt(emp.get("id").toString());
 		this.name = emp.get("employee_name").toString();
@@ -61,8 +50,17 @@ public class Employee {
 		this.profileImage = emp.get("profile_image").toString();
 	}
 
-	public Employee() {
+	public Employee(int id, String name, int salary, int age, String profileImage) {
 		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+		this.age = age;
+		this.profileImage = profileImage;
+	}
+
+	public Employee() {
+		super();
 	}
 
 	public int getId() {
@@ -128,7 +126,5 @@ public class Employee {
 		return age == other.age && id == other.id && Objects.equals(name, other.name)
 				&& Objects.equals(profileImage, other.profileImage) && salary == other.salary;
 	}
-	
-	
-	
+
 }
