@@ -27,6 +27,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private final int TOO_MANY_CLIENTS = 429;
 	private final int INTERNAL_SERVER_ERROR = 500;
 	private final int BAD_REQUEST = 400;
+	private final int SUCCESS = 200;
+	private final int JSON_PARSE_ERROR = 422;
 	@Autowired
 	private RestTemplate restTemplate;
 
@@ -79,7 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 					filteredEmployees.add(employee);
 			}
 			if (filteredEmployees.isEmpty())
-				throw new EmployeeCustomException("Sucess", 200, "No Matching Results Found");
+				throw new EmployeeCustomException("Sucess", SUCCESS, "No Matching Results Found");
 
 			return filteredEmployees;
 		} catch (HttpClientErrorException e) {
@@ -103,16 +105,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee getEmployeeById(String id) throws EmployeeCustomException {
 		String url = baseURL + "/employee/" + id;
+		Employee employee = null;
 		try {
 			Map apiResponse = restTemplate.getForObject(url, Map.class);
 			if (apiResponse != null && apiResponse.get("status").equals("success") && apiResponse.get("data") != null) {
 				ObjectMapper objMapper = new ObjectMapper();
 				String json = new ObjectMapper().writeValueAsString(apiResponse.get("data"));
-				Employee employee = objMapper.readValue(json, Employee.class);
-//				Employee employee = new Employee((Map<String, Object>) apiResponse.get("data"));
-				return employee;
-			} else {
-				throw new EmployeeCustomException("Sucess", 200, "No Employee Found");
+				employee = objMapper.readValue(json, Employee.class);
 			}
 		} catch (HttpClientErrorException e) {
 			logger.error("Error in reading employees {}", e.getStatusText());
@@ -126,9 +125,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 		} catch (JsonProcessingException e) {
 			// TODO: handle exception
-			throw new EmployeeCustomException("Enable To Process Entity", 422, e.getLocalizedMessage());
+			throw new EmployeeCustomException("Enable To Process Entity", JSON_PARSE_ERROR, e.getLocalizedMessage());
 		} catch (Exception e) {
 			throw new EmployeeCustomException("Enable To Process Entity", INTERNAL_SERVER_ERROR, e.getMessage());
+		}
+		if (employee == null) {
+			throw new EmployeeCustomException("Sucess", SUCCESS, "No Employee Found");
+		} else {
+			return employee;
 		}
 	}
 
