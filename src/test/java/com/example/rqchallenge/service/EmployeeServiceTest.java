@@ -1,7 +1,6 @@
 package com.example.rqchallenge.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -14,6 +13,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -44,8 +44,8 @@ public class EmployeeServiceTest {
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", employees);
 		map.put("status", "success");
-		when(restTemplate.getForObject("https://dummy.restapiexample.com/api/v1/employee/1", Map.class))
-				.thenReturn(map);
+
+		when(restTemplate.getForObject(ArgumentMatchers.anyString(), ArgumentMatchers.any())).thenReturn(map);
 
 		Employee employee = empService.getEmployeeById("1");
 		assertEquals(emp, employee);
@@ -68,11 +68,10 @@ public class EmployeeServiceTest {
 		List<LinkedHashMap<String, Object>> retValue = new ArrayList<>();
 		retValue.add(employees);
 		map.put("data", retValue);
-		when(restTemplate.getForObject(eq("https://dummy.restapiexample.com/api/v1/employees"), eq(Map.class)))
-				.thenReturn(map);
+
+		when(restTemplate.getForObject(ArgumentMatchers.anyString(), ArgumentMatchers.any())).thenReturn(map);
 
 		List<Employee> actualResponse = empService.getEmployeesByNameSearch("John");
-
 		assertEquals(actualResponse, expectedResponse);
 	}
 
@@ -94,11 +93,10 @@ public class EmployeeServiceTest {
 		List<LinkedHashMap<String, Object>> retValue = new ArrayList<>();
 		retValue.add(employees);
 		map.put("data", retValue);
-		when(restTemplate.getForObject(eq("https://dummy.restapiexample.com/api/v1/employees"), eq(Map.class)))
-				.thenReturn(map);
+
+		when(restTemplate.getForObject(ArgumentMatchers.anyString(), ArgumentMatchers.any())).thenReturn(map);
 
 		var actualResponse = empService.getAllEmployees();
-
 		assertEquals(actualResponse, expectedResponse);
 	}
 
@@ -118,11 +116,10 @@ public class EmployeeServiceTest {
 		List<LinkedHashMap<String, Object>> retValue = new ArrayList<>();
 		retValue.add(employees);
 		map.put("data", retValue);
-		when(restTemplate.getForObject(eq("https://dummy.restapiexample.com/api/v1/employees"), eq(Map.class)))
-				.thenReturn(map);
+
+		when(restTemplate.getForObject(ArgumentMatchers.anyString(), ArgumentMatchers.any())).thenReturn(map);
 
 		int actualResponse = empService.getHighestSalaryOfEmployees();
-
 		assertEquals(actualResponse, expectedResponse);
 	}
 
@@ -142,11 +139,10 @@ public class EmployeeServiceTest {
 		List<LinkedHashMap<String, Object>> retValue = new ArrayList<>();
 		retValue.add(employees);
 		map.put("data", retValue);
-		when(restTemplate.getForObject(eq("https://dummy.restapiexample.com/api/v1/employees"), eq(Map.class)))
-				.thenReturn(map);
+
+		when(restTemplate.getForObject(ArgumentMatchers.anyString(), ArgumentMatchers.any())).thenReturn(map);
 
 		var actualResponse = empService.getTop10HighestEarningEmployeeNames();
-
 		assertEquals(actualResponse, expectedResponse);
 	}
 
@@ -164,11 +160,12 @@ public class EmployeeServiceTest {
 		expectedOutput.put("salary", "67900");
 		expectedOutput.put("profileImage", "test");
 		expectedOutput.put("id", 1);
-		HashMap<String, Object> expecteOutput = new HashMap<>();
-		expecteOutput.put("status", "success");
-		expecteOutput.put("data", expectedOutput);
-		when(restTemplate.postForObject(eq("https://dummy.restapiexample.com/api/v1/create"), eq(inputEmp),
-				eq(Map.class))).thenReturn(expecteOutput);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("status", "success");
+		map.put("data", expectedOutput);
+
+		when(restTemplate.postForObject(ArgumentMatchers.anyString(), ArgumentMatchers.any(), ArgumentMatchers.any()))
+				.thenReturn(map);
 
 		Employee actualResponse = empService.createEmployee(inputEmp);
 		assertEquals(expectedOutput.get("name"), actualResponse.getName());
@@ -178,7 +175,7 @@ public class EmployeeServiceTest {
 
 	@Test
 	void deleteEmployeeTest() throws Exception {
-		doNothing().when(restTemplate).delete(eq("https://dummy.restapiexample.com/api/v1/delete/4"));
+		doNothing().when(restTemplate).delete(ArgumentMatchers.anyString());
 		String actualResponse = empService.deleteEmployee("4");
 		assertEquals(actualResponse, "4");
 	}

@@ -124,7 +124,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 				throw new EmployeeCustomException("Something Went Wrong", e.getRawStatusCode(), "Cannot Get Employee");
 			}
 		} catch (JsonProcessingException e) {
-			// TODO: handle exception
 			throw new EmployeeCustomException("Enable To Process Entity", JSON_PARSE_ERROR, e.getLocalizedMessage());
 		} catch (Exception e) {
 			throw new EmployeeCustomException("Enable To Process Entity", INTERNAL_SERVER_ERROR, e.getMessage());
@@ -138,7 +137,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public int getHighestSalaryOfEmployees() throws EmployeeCustomException {
-		// TODO Auto-generated method stub
 		try {
 			List<Employee> allEmployees = getAllEmployees();
 			if (allEmployees == null) {
@@ -258,5 +256,4 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw new EmployeeCustomException("Enable To Delete Entity", INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 	}
-
 }

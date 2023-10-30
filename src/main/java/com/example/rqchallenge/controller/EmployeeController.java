@@ -20,7 +20,6 @@ public class EmployeeController implements IEmployeeController {
 
 	@Override
 	public ResponseEntity<List<Employee>> getAllEmployees() throws EmployeeCustomException {
-		// TODO Auto-generated method stub
 		try {
 			List<Employee> employees = this.employeeService.getAllEmployees();
 			if (employees != null) {

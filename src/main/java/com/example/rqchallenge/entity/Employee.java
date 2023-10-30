@@ -51,7 +51,6 @@ public class Employee {
 	}
 
 	public Employee(int id, String name, int salary, int age, String profileImage) {
-		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.name = name;
 		this.salary = salary;
